@@ -97,7 +97,7 @@ class FlightForm extends Component {
         this.props.onSubmit(data);
         this.setState({flightNumber: "", departureDate: "", origin: "", destination: ""});
     }
-    
+
     render() {
       return (
         <form onSubmit={this._handleSubmit}>
@@ -127,7 +127,7 @@ class FlightList extends Component{
                 <span>Seats</span>
             </div>
             {
-                this.props.flights.map((flight, index)=> 
+                this.props.flights.map((flight, index)=>
                     <div key={flight.id}>
                         <span key={index+1}>{flight.departure_date}</span>
                         <span key={index+2}>{flight.flight_number}</span>

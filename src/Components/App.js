@@ -1,10 +1,9 @@
 import React from 'react';
-import FlightPage from './FlightPage';
+import Airplane from './Airplane';
 
 function App() {
   return (
     <div className="App">
-      <FlightPage />
       <Airplane />
     </div>
   );
