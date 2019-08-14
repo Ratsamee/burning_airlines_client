@@ -19,8 +19,14 @@ class Airplane extends Component {
       });
     }
 
-    fetchSecrets();
+  //  fetchAirplanes(); // calling the above function
   };
+
+  saveAirplane(plane) {
+    axios.post(Airplane_SERVER_URL, { plane: plane}).then((result) => { // DOUBLECHECK
+      this.setState({airplanes: [...this.state.airplane, result.data]});// DOUBLECHECK
+    });
+  }
 
   render() {
     return (
@@ -35,27 +41,37 @@ class Airplane extends Component {
 class AirplaneCreate extends Component { // we're doing all the interactions with the application in this class, this is a child.
   constructor(){
     super();
-    this.state = {content: ''}; // we want the state of the content to be a string
+    this.state = {name: '',
+                  rows: 0,
+                  columns: 0}; // we want the state of the name to be a string
 //    this._handleSubmit = this.handleSubmit.bind(this); // DOUBLE CHECK
 //    this._handleChange = this.handleSubmit.bind(this); // DOUBLE CHECK
   }
 
   _handleSubmit(event) { //This is the action of us sending the data
     event.preventDefault(); //we're stopping the page from refreshing
-    this.props.onSubmit(this.stsate.content); // onsubmit, submit the content
-    this.setState({content: ''}); // make sure its a string
+    this.props.onSubmit(this.state.name); // onsubmit, submit the name
+    this.setState({name: ''}); // make sure its a string
   }
 
   _handleChange(event) { // This is the action of us storing the data
-    this.setState({ content: event.target.value}); // this is the code we're using to retain this data
+    this.setState({ name: event.target.value}); // this is the code we're using to retain this data
   }
 
   render() { // for us to view anything we must render
     return( // a must to see anything within render
-      <form onSubmit={ this._handleSubmit }> //when the onsubmit is activated this._handleSubmit function will trigger
+      <form onSubmit={ this._handleSubmit }>
         <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
-        value={ this.state.content }></textarea> // DOUBLE CHECK
-        <input type="submit" value="Tell" /> // DOUBLE CHECK
+        value={ this.state.name }></textarea> // DOUBLE CHECK
+        // DOUBLE CHECK
+
+        <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
+        value={ this.state.row }></textarea> // DOUBLE CHECK
+
+
+        <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
+        value={ this.state.columns }></textarea> // DOUBLE CHECK
+        <input type="submit" value="Tell" />
       </form>
     );
   }
