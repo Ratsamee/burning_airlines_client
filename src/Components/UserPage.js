@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+
+
 
 const USER_SERVER_URL = 'http://localhost:3000/users.json';
 class UserPage extends Component {
@@ -81,13 +84,13 @@ class UserSignUp extends Component {
 
   render() {
     return(
-      <form onSubmit={this._handleSubmit}>
+      <form controlId="formBasicEmail" onSubmit={this._handleSubmit}>
         First Name: <input type="text" placeholder="First Name" onChange={this._handleFirstNameChange} value={this.state.firstName}/>
         Last Name: <input type="text" placeholder="Last Name" onChange={this._handleLastNameChange} value={this.state.lastName} />
         Email Address: <input type="email" placeholder="Email" onChange={this._handleEmailChange} value={this.state.email}/>
         Password: <input type="password" placeholder="Password" onChange={this._handlePasswordChange}  value={this.state.password}/>
         Password Confirmation: <input type="password" placeholder="Password Confirmation" onChange={this._handlePasswordConfirmationChange}  value={this.state.passwordConfirmation}/>
-        <input type="button" value="Cancel"></input>
+        <input type="button" variant="primary" value="Cancel"></input>
         <input type="submit" value="Save"></input>
       </form>
     );
