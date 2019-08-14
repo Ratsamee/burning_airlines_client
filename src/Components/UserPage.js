@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const USER_SERVER_URL = 'http://localhost:3000/users.json';
 class UserPage extends Component {
@@ -82,15 +83,6 @@ class UserSignUp extends Component {
   }
 }
 
-
-
-
-
-
-
-
-
-
 class UserLogIn extends Component {
   render() {
     return(
@@ -98,8 +90,5 @@ class UserLogIn extends Component {
     );
   }
 }
-
-
-
 
 export default UserPage;

@@ -4,7 +4,7 @@ import axious from 'axious';
 const FlightPage_SERVER_URL = 'http://localhost:3000/FlightPage.json';
 const FLIGHT_SERVER_URL = 'http://localhost:3000/flights.json'
 
-class Airplane extends component {
+class Airplane extends Component {
   constructor() {
     super();
     this.state = {
