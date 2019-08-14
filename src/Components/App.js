@@ -2,13 +2,14 @@ import React from 'react';
 
 import Airplane from './Airplane';
 import FlightPage from './FlightPage';
-import Users from './UserPage'
+import UserPage from './UserPage'
 
 
 function App() {
   return (
     <div className="App">
-      <Airplane />
+      <FlightPage />
+      <UserPage />
     </div>
   );
 }
