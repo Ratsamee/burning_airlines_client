@@ -8,6 +8,7 @@ class Home extends Component {
         <h2>Burning Airlines</h2>
         <p><Link to="/users">Users</Link></p>
         <p><Link to="/flights">Flights</Link></p>
+        <p><Link to="/searchflights">Search Flights</Link></p>
       </div>
       
     )

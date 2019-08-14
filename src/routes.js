@@ -12,6 +12,7 @@ export const Routes = (
       //Flights page set as Home page ('/')
       <Route exact path="/" component={ Home } />
       <Route exact path="/flights" component={ Flights } />
+      <Route exact path="/searchflights" component={ FlightSearch } />
       <Route exact path="/users" component={ Users } />
       //Change airplanes to 'fleet'
 
