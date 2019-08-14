@@ -61,17 +61,18 @@ class AirplaneCreate extends Component { // we're doing all the interactions wit
   render() { // for us to view anything we must render
     return( // a must to see anything within render
       <form onSubmit={ this._handleSubmit }>
-        <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
-        value={ this.state.name }></textarea> // DOUBLE CHECK
-        // DOUBLE CHECK
 
-        <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
-        value={ this.state.row }></textarea> // DOUBLE CHECK
+        Name: <input onChange={ this.handleChange }  // onChanged activate _handleChange
+        value={ this.state.name }></input>
+
+        Row: <input onChange={ this.handleChange }  // onChanged activate _handleChange
+        value={ this.state.row }></input>
 
 
-        <textarea onChange={ this.handleChange }  // onChanged activate _handleChange
-        value={ this.state.columns }></textarea> // DOUBLE CHECK
+        Column: <input onChange={ this.handleChange }  // onChanged activate _handleChange
+        value={ this.state.columns }></input>
         <input type="submit" value="Tell" />
+
       </form>
     );
   }
