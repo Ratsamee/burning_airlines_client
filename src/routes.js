@@ -5,12 +5,14 @@ import Flights from './Components/FlightPage';
 import Users from './Components/UserPage';
 import FlightSearch from "./Components/FlightSearchPage";
 import Airplanes from './Components/Airplane';
+import Navigation from './Navigation';
+
 // TO DO
 // import Bookings
 export const Routes = (
   <Router>
     <div>
-      //Flights page set as Home page ('/')
+      <Navigation/>
       <Route exact path="/" component={ Home } />
       <Route exact path="/flights" component={ Flights } />
       <Route exact path="/searchflights" component={ FlightSearch } />
