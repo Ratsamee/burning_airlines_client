@@ -54,14 +54,14 @@ class AirplaneCreate extends Component { // we're doing all the interactions wit
   _handleSubmit(event) { //This is the action of us sending the data
     event.preventDefault(); //we're stopping the page from refreshing
     this.props.onSubmit(this.state.name , this.state.columns, this.state.rows); // onsubmit, submit the name
-    this.setState({name: '', rows: 0, colums: 0}); // make sure its a string
+    this.setState({name: '', rows: 0, colums: 0}); // make sure its a string and intergers
   }
 
   _handleChange(event) { // This is the action of us storing the data
     switch (event.target.name) {
       case "planeName":
-        this.setState({ name: event.target.value});
-        break;
+      this.setState({ name: event.target.value});
+      break;
       case "rows":
       this.setState({rows: event.target.value});
       break;
