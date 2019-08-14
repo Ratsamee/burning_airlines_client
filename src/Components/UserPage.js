@@ -75,7 +75,6 @@ class UserSignUp extends Component {
   _handleSubmit(event){
     event.preventDefault();
     const data = {first_name: this.state.firstName, last_name: this.state.lastName, email: this.state.email, isadmin: false, password: this.state.password };
-    console.log("This is dayra", data);
     this.props.onSubmit( data );
     this.setState( {first_name: "", last_name: "", email: "", password: "" });
   }
