@@ -1,26 +1,37 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 
 const USER_SERVER_URL = 'http://localhost:3000/users.json';
 class UserPage extends Component {
   constructor() {
     super();
+    this.state = {
+      users: []
+    };
 
   this.saveUser = this.saveUser.bind(this);
+  const fetchUser =()=>{
+  	axios.get(USER_SERVER_URL).then((results)=>{
+  		 console.log('fetchUsers',results.data);
+  		this.setState({users: results.data});
+  	 });
+  }
+  fetchUser();
+
 }
 //CHECK THIS SECTION
   saveUser (user) {
     console.log(user);
-    axios.post(USER_SERVER_URL, user).then(()=>{
-      alert("submitted")
-    });
+    axios.post(USER_SERVER_URL, user).then((result)=>{
+      this.setState({users: [...this.state.users, result.data]});
+    })
   }
   render(){
     return(
       <div>
         <h2>User Page</h2>
         <UserSignUp onSubmit={ this.saveUser }/>
+        <UserList users={ this.state.users }/>
       </div>
     );
   }
@@ -63,7 +74,8 @@ class UserSignUp extends Component {
 
   _handleSubmit(event){
     event.preventDefault();
-    const data = {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email, isadmin: false, password: this.state.password };
+    const data = {first_name: this.state.firstName, last_name: this.state.lastName, email: this.state.email, isadmin: false, password: this.state.password };
+    console.log("This is dayra", data);
     this.props.onSubmit( data );
     this.setState( {first_name: "", last_name: "", email: "", password: "" });
   }
@@ -83,12 +95,31 @@ class UserSignUp extends Component {
   }
 }
 
-class UserLogIn extends Component {
+class UserList extends Component {
   render() {
     return(
-      <h3>UserLogIn form coming soon</h3>
-    );
+      <table>
+          <thead>
+              <tr>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+              </tr>
+          </thead>
+          {
+              this.props.users.map((user, index)=>
+              <tbody key={user.id+1}>
+                  <tr key={user.id}>
+                      <td key={index+1}>{((user.first_name))}</td>
+                      <td key={index+2}>{user.last_name}</td>
+                      <td key={index+3}>{user.email}</td>
+                  </tr>
+              </tbody>
+              )
+          }
+      </table>
+    )
+  };
   }
-}
 
 export default UserPage;
