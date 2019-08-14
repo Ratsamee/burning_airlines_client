@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const Airplane_SERVER_URL = 'http://localhost:3000/Airplane.json'
+const Airplane_SERVER_URL = 'http://localhost:3000/airplanes.json'
 
 class Airplane extends Component {
   constructor() {
@@ -9,7 +9,7 @@ class Airplane extends Component {
     this.state = {
       airplanes: []
     };
-//      this.saveAirplane = this.saveAirplane.bind(this) // DOUBLE CHECK
+      this.saveAirplane = this.saveAirplane.bind(this) // DOUBLE CHECK
 
       const fetchAirplanes = () => {
         axios.get(Airplane_SERVER_URL).then((results)=>{
@@ -19,12 +19,13 @@ class Airplane extends Component {
       });
     }
 
-  //  fetchAirplanes(); // calling the above function
+fetchAirplanes();
   };
 
-  saveAirplane(plane) {
-    axios.post(Airplane_SERVER_URL, { plane: plane}).then((result) => { // DOUBLECHECK
-      this.setState({airplanes: [...this.state.airplane, result.data]});// DOUBLECHECK
+  saveAirplane(name, rows, columns) {
+    axios.post(Airplane_SERVER_URL, { name: name, rows: rows, columns: columns}).then((result) => { // DOUBLECHECK
+      console.log('aftersave', result);
+      this.setState({airplanes: [...this.state.airplanes, result.data]});// DOUBLECHECK
     });
   }
 
@@ -32,7 +33,7 @@ class Airplane extends Component {
     return (
       <div>
       <h1>Hello World</h1>
-      <AirplaneCreate />
+      <AirplaneCreate onSubmit={this.saveAirplane} />
       </div>
     )
   }
@@ -44,32 +45,48 @@ class AirplaneCreate extends Component { // we're doing all the interactions wit
     this.state = {name: '',
                   rows: 0,
                   columns: 0}; // we want the state of the name to be a string
-//    this._handleSubmit = this.handleSubmit.bind(this); // DOUBLE CHECK
-//    this._handleChange = this.handleSubmit.bind(this); // DOUBLE CHECK
+
+
+    this._handleSubmit = this._handleSubmit.bind(this); // DOUBLE CHECK
+    this._handleChange = this._handleChange.bind(this); // DOUBLE CHECK
   }
 
   _handleSubmit(event) { //This is the action of us sending the data
     event.preventDefault(); //we're stopping the page from refreshing
-    this.props.onSubmit(this.state.name); // onsubmit, submit the name
-    this.setState({name: ''}); // make sure its a string
+    this.props.onSubmit(this.state.name , this.state.columns, this.state.rows); // onsubmit, submit the name
+    this.setState({name: '', rows: 0, colums: 0}); // make sure its a string
   }
 
   _handleChange(event) { // This is the action of us storing the data
-    this.setState({ name: event.target.value}); // this is the code we're using to retain this data
+    switch (event.target.name) {
+      case "planeName":
+        this.setState({ name: event.target.value});
+        break;
+      case "rows":
+      this.setState({rows: event.target.value});
+      break;
+      case "cols":
+      this.setState({columns: event.target.value});
+      break;
+
+    }
+
+
+     // this is the code we're using to retain this data
   }
 
   render() { // for us to view anything we must render
     return( // a must to see anything within render
       <form onSubmit={ this._handleSubmit }>
 
-        Name: <input onChange={ this.handleChange }  // onChanged activate _handleChange
+        Name: <input type="text" name="planeName" onChange={ this._handleChange }  // onChanged activate _handleChange
         value={ this.state.name }></input>
 
-        Row: <input onChange={ this.handleChange }  // onChanged activate _handleChange
-        value={ this.state.row }></input>
+        Row: <input type="number" name="rows" onChange={ this._handleChange }  // onChanged activate _handleChange
+        value={ this.state.rows }></input>
 
 
-        Column: <input onChange={ this.handleChange }  // onChanged activate _handleChange
+        Column: <input type="number" name="cols" onChange={ this._handleChange }  // onChanged activate _handleChange
         value={ this.state.columns }></input>
         <input type="submit" value="Tell" />
 
