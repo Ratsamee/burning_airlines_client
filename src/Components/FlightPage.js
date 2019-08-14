@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const AIRPLANE_SERVER_URL = 'http://localhost:3000/airplanes.json';
-const FLIGHT_SERVER_URL = 'http://localhost:3000/flights.json';
+const AIRPLANE_SERVER_URL = 'https://group-project-airline.herokuapp.com/airplanes.json';
+const FLIGHT_SERVER_URL = 'https://group-project-airline.herokuapp.com/flights.json';
 class FlightPage extends Component {
   constructor() {
     super();

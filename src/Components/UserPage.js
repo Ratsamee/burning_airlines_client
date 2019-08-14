@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
 
 
 
-const USER_SERVER_URL = 'http://localhost:3000/users.json';
+const USER_SERVER_URL = 'https://group-project-airline.herokuapp.com/users.json';
 class UserPage extends Component {
   constructor() {
     super();
