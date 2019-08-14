@@ -59,7 +59,7 @@ class FlightForm extends Component {
                     return <option value={airplane.id} key={airplane.id}>{airplane.name}</option>
                 });
                 this.setState({airplanes:airplanes});
-                this.setState({airplane_id: result.data[0].id});
+                // this.setState({airplane_id: result.data[0].id});
             })
         };
         loadAirplanes();
