@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 const AIRPLANE_SERVER_URL = 'http://localhost:3000/airplanes.json';
-const FLIGHT_SERVER_URL = 'http://localhost:3000/flights.json'
+const FLIGHT_SERVER_URL = 'http://localhost:3000/flights.json';
 class FlightPage extends Component {
   constructor() {
     super();
@@ -15,7 +15,7 @@ class FlightPage extends Component {
     // polling
     const fetchflights = () => {
         axios.get(FLIGHT_SERVER_URL).then((results)=>{
-            console.log(results.data);
+            console.log('fetData',results.data);
             this.setState({flights: results.data});
         });
         setTimeout(this.fetchflights, 4000);
@@ -25,6 +25,7 @@ class FlightPage extends Component {
   }
 
   saveFlight(flight){
+      console.log(flight);
     axios.post(FLIGHT_SERVER_URL, flight).then((result)=>{
         this.setState({flights: [...this.state.flights, result.data]});
     })
@@ -35,7 +36,6 @@ class FlightPage extends Component {
         <div>
             <h1>Virgin Airline</h1>
             <FlightForm onSubmit={this.saveFlight} />
-            {console.log(this.state.flights)}
             <FlightList flights={this.state.flights} />
         </div>
     );
@@ -51,49 +51,48 @@ class FlightForm extends Component {
             departureDate: "",
             origin: "",
             destination: "",
-            plane: ""
+            airplane_id: ""
         };
         const loadAirplanes = () => {
             axios.get(AIRPLANE_SERVER_URL).then((result)=>{
-                let airplanes = result.data.map((airplane)=>{
+                let airplanes = result.data.map((airplane, index)=>{
                     return <option value={airplane.id} key={airplane.id}>{airplane.name}</option>
                 });
                 this.setState({airplanes:airplanes});
+                this.setState({airplane_id: result.data[0].id});
             })
         };
         loadAirplanes();
 
-        this._handleFlightNumberOnChange = this._handleFlightNumberOnChange.bind(this);
-        this._handleDepartureDateOnChange = this._handleDepartureDateOnChange.bind(this);
-        this._handlerOriginOnChange = this._handlerOriginOnChange.bind(this);
-        this._handlerDestinationOnChange = this._handlerDestinationOnChange.bind(this);
-        this._handlerPlaneOnChange = this._handlerPlaneOnChange.bind(this);
+        this._handleOnChange = this._handleOnChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
     }
 
-    _handleFlightNumberOnChange(event) {
-        this.setState({flightNumber:event.target.value});
-    }
-
-    _handleDepartureDateOnChange(event){
-        this.setState({departureDate: event.target.value});
-    }
-
-    _handlerOriginOnChange(event){
-        this.setState({origin: event.target.value});
-    }
-
-    _handlerDestinationOnChange(event){
-        this.setState({destination: event.target.value});
-    }
-
-    _handlerPlaneOnChange(event){
-        this.setState({plane: event.target.value});
+    _handleOnChange(event){
+        switch (event.target.name) {
+            case "flight_number":
+                this.setState({flightNumber:event.target.value});
+                break;
+            case "departure_date":
+                this.setState({departureDate: event.target.value});
+                break;
+            case "origin":
+                this.setState({origin: event.target.value});
+                break;
+            case "destination":
+                this.setState({destination: event.target.value});
+                break;
+            case "airplane":
+                this.setState({airplane_id: event.target.value});
+                break;
+            default:
+                break;
+        }
     }
 
     _handleSubmit(event){
         event.preventDefault();
-        const data = {flight_number: this.state.flightNumber, departure_date: this.state.departureDate, origin: this.state.origin, destination: this.state.destination, airplane_id: this.state.plane};
+        const data = {flight_number: this.state.flightNumber, departure_date: this.state.departureDate, origin: this.state.origin, destination: this.state.destination, airplane_id: this.state.airplane_id};
         this.props.onSubmit(data);
         this.setState({flightNumber: "", departureDate: "", origin: "", destination: ""});
     }
@@ -101,11 +100,12 @@ class FlightForm extends Component {
     render() {
       return (
         <form onSubmit={this._handleSubmit}>
-            Flight Number: <input type="text" placeholder="QF746" onChange={this._handleFlightNumberOnChange} value={this.state.flightNumber} required />
-            Departure Date: <input type="text" placeholder="DD/MM/YYYY" onChange={this._handleDepartureDateOnChange} value={this.state.departureDate} required />
-            Origin: <input type="text" placeholder="Origin" onChange={this._handlerOriginOnChange} value={this.state.origin} required />
-            Destination: <input type="text" placeholder="Destination" onChange={this._handlerDestinationOnChange} value={this.state.destination} required />
-            Plane: <select onChange={this._handlerPlaneOnChange}>
+
+            Flight Number: <input name="flight_number" type="text" placeholder="QF746" onChange={this._handleOnChange} value={this.state.flightNumber} required />
+            Departure Date: <input name="departure_date" type="text" placeholder="DD/MM/YYYY" onChange={this._handleOnChange} value={this.state.departureDate} required />
+            Origin: <input type="text" name="origin" placeholder="Origin" onChange={this._handleOnChange} value={this.state.origin} required />
+            Destination: <input type="text" name="destination" placeholder="Destination" onChange={this._handleOnChange} value={this.state.destination} required />
+            Plane: <select name="airplane" onChange={this._handleOnChange}>
                 {this.state.airplanes}
             </select>
             <input type="button" value="Cancel"></input>
@@ -118,26 +118,30 @@ class FlightForm extends Component {
 class FlightList extends Component{
     render() {
       return (
-        <div>
-            <div>
-                <span>Date</span>
-                <span>Flight</span>
-                <span>From > To</span>
-                <span>Plane</span>
-                <span>Seats</span>
-            </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Flight</th>
+                    <th>From > To</th>
+                    <th>Plane</th>
+                    <th>Seats</th>
+                </tr>
+            </thead>
             {
                 this.props.flights.map((flight, index)=> 
-                    <div key={flight.id}>
-                        <span key={index+1}>{flight.departure_date}</span>
-                        <span key={index+2}>{flight.flight_number}</span>
-                        <span key={index+3}>{`${flight.origin} > ${flight.destination}`}</span>
-                        <span key={index+4}>{flight.airplane_id}</span>
-                        <span key={index+5}>0</span>
-                    </div>
+                <tbody key={flight.id+1}>
+                    <tr key={flight.id}>
+                        <td key={index+1}>{(new Date(flight.departure_date)).toLocaleDateString()}</td>
+                        <td key={index+2}>{flight.flight_number}</td>
+                        <td key={index+3}>{`${flight.origin} > ${flight.destination}`}</td>
+                        <td key={index+4}>{flight.airplane.name}</td>
+                        <td key={index+5}>{(flight.airplane.rows * flight.airplane.columns).toString()}</td>
+                    </tr>
+                </tbody>
                 )
             }
-        </div>
+        </table>
       )
     };
 }
