@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Button, Form, FormGroup, FormLabel, FormControl, Label, Input, FormText, Table } from 'react-bootstrap';
 
 const AIRPLANE_SERVER_URL = 'https://group-project-airline.herokuapp.com/airplanes.json';
 const FLIGHT_SERVER_URL = 'https://group-project-airline.herokuapp.com/flights.json';
@@ -100,18 +101,37 @@ class FlightForm extends Component {
 
     render() {
       return (
+        <Form>
+        <FormGroup controlId="formBasicEmail">
+
         <form onSubmit={this._handleSubmit}>
 
-            Flight Number: <input name="flight_number" type="text" placeholder="QF746" onChange={this._handleOnChange} value={this.state.flightNumber} required />
-            Departure Date: <input name="departure_date" type="text" placeholder="DD/MM/YYYY" onChange={this._handleOnChange} value={this.state.departureDate} required />
-            Origin: <input type="text" name="origin" placeholder="Origin" onChange={this._handleOnChange} value={this.state.origin} required />
-            Destination: <input type="text" name="destination" placeholder="Destination" onChange={this._handleOnChange} value={this.state.destination} required />
-            Plane: <select name="airplane" onChange={this._handleOnChange}>
+            <FormLabel>Flight Number:</FormLabel>
+            <FormControl input name="flight_number" type="text" placeholder="QF746" onChange={this._handleOnChange} value={this.state.flightNumber} required />
+
+            <FormLabel>Departure Date:</FormLabel>
+            <FormControl input name="departure_date" type="text" placeholder="DD/MM/YYYY" onChange={this._handleOnChange} value={this.state.departureDate} required />
+
+            <FormLabel>Origin:</FormLabel>
+            <FormControl input type="text" name="origin" placeholder="Origin" onChange={this._handleOnChange} value={this.state.origin} required />
+
+            <FormLabel>Destination:</FormLabel>
+            <FormControl input type="text" name="destination" placeholder="Destination" onChange={this._handleOnChange} value={this.state.destination} required />
+
+            <FormLabel>Plane:</FormLabel>
+            <select name="airplane" onChange={this._handleOnChange}>
                 {this.state.airplanes}
+
             </select>
-            <input type="button" value="Cancel"></input>
-            <input type="submit" value="Save"></input>
+            <Button variant="primary" type="reset" type="button" variant="primary" value="Cancel">
+            Cancel
+            </Button>
+            <Button variant="primary" type="submit">
+            Submit
+            </Button>
         </form>
+        </FormGroup>
+      </Form>
 
       )
     };
@@ -120,7 +140,7 @@ class FlightForm extends Component {
 class FlightList extends Component{
     render() {
       return (
-        <table>
+        <Table striped bordered hover size="sm">
             <thead>
                 <tr>
                     <th>Date</th>
@@ -143,7 +163,7 @@ class FlightList extends Component{
                 </tbody>
                 )
             }
-        </table>
+        </Table>
 
       )
     };
