@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import { Button, Form, FormGroup, FormLabel, FormControl, Label, Input, FormText, Table } from 'react-bootstrap';
-=======
 import { Link } from 'react-router-dom';
->>>>>>> f3bf3a2e4bb1b86482932e7f95e4dfe78d7ec313
 
 const AIRPLANE_SERVER_URL = 'https://group-project-airline.herokuapp.com/airplanes.json';
 const FLIGHT_SERVER_URL = 'https://group-project-airline.herokuapp.com/flights.json';
