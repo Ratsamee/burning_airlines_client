@@ -7,25 +7,22 @@ class Airplane extends Component {
   constructor() {
     super();
     this.state = {
-      airplanes: []
+      airplane: []
     };
       this.saveAirplane = this.saveAirplane.bind(this) // DOUBLE CHECK
 
-      const fetchAirplanes = () => {
-        axios.get(Airplane_SERVER_URL).then((results)=>{
-        console.log(results.data);
-        this.setState({Airplanes: results.data});
-        setTimeout( fetchAirplanes, 850 ) // The Recursion
-      });
-    }
-
-fetchAirplanes();
+      const fetchPlanes = () => {
+        axios.get(Airplane_SERVER_URL).then((results) => {
+          this.setState({airplane: results.data});
+          setTimeout( fetchPlanes, 2000 );
+        })}
+        fetchPlanes();
   };
+
 
   saveAirplane(name, rows, columns) {
     axios.post(Airplane_SERVER_URL, { name: name, rows: rows, columns: columns}).then((result) => { // DOUBLECHECK
-      console.log('aftersave', result);
-      this.setState({airplanes: [...this.state.airplanes, result.data]});// DOUBLECHECK
+      this.setState({airplane: result.data});// DOUBLECHECK
     });
   }
 
@@ -93,7 +90,7 @@ class AirplaneCreate extends Component { // we're doing all the interactions wit
       </form>
     );
   }
-}
+};
 
 
 

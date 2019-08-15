@@ -5,6 +5,7 @@ import Flights from './Components/FlightPage';
 import Users from './Components/UserPage';
 import FlightSearch from "./Components/FlightSearchPage";
 import Airplanes from './Components/Airplane';
+import Reservation from "./Components/ReservationPage";
 import Navigation from './Navigation';
 import Footer from './Components/Footer';
 
@@ -20,6 +21,8 @@ export const Routes = (
       <Route exact path="/searchflights" component={ FlightSearch } />
       <Route exact path="/users" component={ Users } />
       <Route exact path="/airplanes" component= {Airplanes} />
+      <Route exact path="/flights/:id" component={Reservation} />
+      
       <Footer/>
     </div>
   </Router>
