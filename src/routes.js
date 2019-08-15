@@ -19,7 +19,7 @@ export const Routes = (
       <Route exact path="/searchflights" component={ FlightSearch } />
       <Route exact path="/users" component={ Users } />
       <Route exact path="/airplanes" component= {Airplanes} />
-      <Route exact path="/flights/:id" />
+      <Route exact path="/flights/:id" component={Reservation} />
       
     </div>
   </Router>
