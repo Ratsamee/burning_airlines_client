@@ -5,6 +5,7 @@ import Flights from './Components/FlightPage';
 import Users from './Components/UserPage';
 import FlightSearch from "./Components/FlightSearchPage";
 import Airplanes from './Components/Airplane';
+import Reservation from "./Components/ReservationPage";
 import Navigation from './Navigation';
 
 // TO DO
@@ -18,10 +19,8 @@ export const Routes = (
       <Route exact path="/searchflights" component={ FlightSearch } />
       <Route exact path="/users" component={ Users } />
       <Route exact path="/airplanes" component= {Airplanes} />
-      //Change airplanes to 'fleet'
-
-      // TO DO
-      // Route Bookings
+      <Route exact path="/flights/:id" />
+      
     </div>
   </Router>
 )
