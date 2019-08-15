@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-const FLIGHT_URL = 'https://group-project-airline.herokuapp.com/flights/:id.json'
+const FLIGHT_URL = 'http://localhost:3000/flights/:id.json'
 class ReservationPage extends Component {
   constructor(props) {
     super(props);
@@ -9,8 +9,10 @@ class ReservationPage extends Component {
         flightId: 0,
         data: {}
     };
-    const fetFlight = ()=>{
-        const flight_Id = this.props.match.params.id;
+  }
+
+  componentDidMount(){
+    const flight_Id = this.props.match.params.id;
         this.setState({flightId: flight_Id});
         const url = FLIGHT_URL.replace(":id", flight_Id);
         console.log(url);
@@ -18,9 +20,6 @@ class ReservationPage extends Component {
             console.log(result.data);
             this.setState({data: result.data});
         });
-    }
-
-    fetFlight();
   }
 
   render() {
@@ -28,6 +27,7 @@ class ReservationPage extends Component {
       <div>
           <h1>Virgin Airline</h1>
           <table>
+              <tbody>
               <tr>
                   <td>
                     <label>{(new Date(this.state.data.departure_date)).toLocaleDateString()}</label>
@@ -42,42 +42,33 @@ class ReservationPage extends Component {
               <tr>
                   <td></td>
                   <td>
-                    <Seats data={this.state.data} />
+                      
                   </td>
                   <td></td>
               </tr>
+              </tbody>
           </table>
+          <Seats data={this.state.data}/>
+      </div>
+    );
+  }
+}
+
+class Seats extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        
       </div>
     );
   }
 }
 
 export default ReservationPage;
-
-class Seats extends Component {
-  constructor() {
-    super();
-    
-  }
-
-  renderSeats(){
-    const rows = Array(this.props.data.airplane.rows);
-    const cols = this.props.data.airplane.columns;
-
-    for (let i = 0; i < rows; i++) {
-        for (let j = 0; j < cols; j++) {
-
-        }
-        
-    }
-  }
-
-  render() {
-    return (
-      <div>
-          
-      </div>
-    );
-  }
-}
 

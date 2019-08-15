@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 
 
 
-const USER_SERVER_URL = 'https://group-project-airline.herokuapp.com/users.json';
+const USER_SERVER_URL = 'http://localhost:3000/users.json';
 class UserPage extends Component {
   constructor() {
     super();
