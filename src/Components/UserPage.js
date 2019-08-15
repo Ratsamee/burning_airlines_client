@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import { Button, Form, FormGroup, FormLabel, FormControl, Label, Input, FormText } from 'react-bootstrap';
+import { Button, Form, FormGroup, FormLabel, FormControl, Label, Input, FormText, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 
@@ -87,23 +87,37 @@ class UserSignUp extends Component {
     return(
       <div>
         <h2>New Passenger</h2>
-        <Form>
-        <FormGroup controlId="formBasicEmail">
-    <FormLabel>Email address</FormLabel>
-    <FormControl type="email" placeholder="Enter email" />
-    </FormGroup>
-      </Form>
 
-          <form onSubmit={this._handleSubmit}>
-            First Name: <input type="text" placeholder="First Name" onChange={this._handleFirstNameChange} value={this.state.firstName}/>
-            Last Name: <input type="text" placeholder="Last Name" onChange={this._handleLastNameChange} value={this.state.lastName} />
-            Email Address: <input type="email" placeholder="Email" onChange={this._handleEmailChange} value={this.state.email}/>
-            Password: <input type="password" placeholder="Password" onChange={this._handlePasswordChange}  value={this.state.password}/>
-            Password Confirmation: <input type="password" placeholder="Password Confirmation" onChange={this._handlePasswordConfirmationChange}  value={this.state.passwordConfirmation}/>
-            <input type="button" variant="primary" value="Cancel"></input>
-            <input type="submit" value="Save"></input>
+      <Form>
+      <FormGroup controlId="formBasicEmail">
+
+      <form onSubmit={this._handleSubmit}>
+
+            <FormLabel>First Name: </FormLabel>
+            <FormControl input type="text" placeholder="First Name" onChange={this._handleFirstNameChange} value={this.state.firstName} />
+
+            <FormLabel>Last Name:</FormLabel>
+            <FormControl input type="text" placeholder="Last Name" onChange={this._handleLastNameChange} value={this.state.lastName} />
+
+            <FormLabel>Email Address:</FormLabel>
+            <FormControl input type="email" placeholder="Email" onChange={this._handleEmailChange} value={this.state.email}/>
+
+            <FormLabel>Password:</FormLabel>
+            <FormControl input type="password" placeholder="Password" onChange={this._handlePasswordChange}  value={this.state.password}/>
+
+            <FormLabel>Password Confirmation:</FormLabel>
+            <FormControl input type="password" placeholder="Password Confirmation" onChange={this._handlePasswordConfirmationChange}  value={this.state.passwordConfirmation}/>
+
+            <Button variant="primary" type="submit">
+            Submit
+            </Button>
+            <Button variant="primary" type="reset" type="button" variant="primary" value="Cancel">
+            Cancel
+            </Button>
+
           </form>
-
+          </FormGroup>
+        </Form>
       </div>
 
     );
@@ -115,7 +129,7 @@ class UserList extends Component {
     return(
       <div>
       <h2>Passenger List</h2>
-      <table>
+      <Table striped bordered hover size="sm">
           <thead>
               <tr>
                   <th>UserID</th>
@@ -136,7 +150,7 @@ class UserList extends Component {
               </tbody>
               )
           }
-      </table>
+      </Table>
 
       </div>
     )

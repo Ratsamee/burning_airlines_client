@@ -27,6 +27,7 @@ class FlightSearchPage extends Component {
       <div>
           <h2>Flight Search</h2>
           <FlightSearchForm onSubmit={this.fetchSearchFlight} />
+          <h2>Search Results</h2>
           <FlightList flights={this.state.flights} />
       </div>
     );
