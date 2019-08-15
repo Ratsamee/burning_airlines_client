@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
 import axios from 'axios';
+import { Button, Form, FormGroup, FormLabel, FormControl, Label, Input, FormText } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+
+
+
 
 const USER_SERVER_URL = 'https://group-project-airline.herokuapp.com/users.json';
 class UserPage extends Component {
@@ -29,7 +34,6 @@ class UserPage extends Component {
   render(){
     return(
       <div>
-        <h2>User Page</h2>
         <UserSignUp onSubmit={ this.saveUser }/>
         <UserList users={ this.state.users }/>
       </div>
@@ -81,15 +85,27 @@ class UserSignUp extends Component {
 
   render() {
     return(
-      <form onSubmit={this._handleSubmit}>
-        First Name: <input type="text" placeholder="First Name" onChange={this._handleFirstNameChange} value={this.state.firstName}/>
-        Last Name: <input type="text" placeholder="Last Name" onChange={this._handleLastNameChange} value={this.state.lastName} />
-        Email Address: <input type="email" placeholder="Email" onChange={this._handleEmailChange} value={this.state.email}/>
-        Password: <input type="password" placeholder="Password" onChange={this._handlePasswordChange}  value={this.state.password}/>
-        Password Confirmation: <input type="password" placeholder="Password Confirmation" onChange={this._handlePasswordConfirmationChange}  value={this.state.passwordConfirmation}/>
-        <input type="button" value="Cancel"></input>
-        <input type="submit" value="Save"></input>
-      </form>
+      <div>
+        <h2>New Passenger</h2>
+        <Form>
+        <FormGroup controlId="formBasicEmail">
+    <FormLabel>Email address</FormLabel>
+    <FormControl type="email" placeholder="Enter email" />
+    </FormGroup>
+      </Form>
+
+          <form onSubmit={this._handleSubmit}>
+            First Name: <input type="text" placeholder="First Name" onChange={this._handleFirstNameChange} value={this.state.firstName}/>
+            Last Name: <input type="text" placeholder="Last Name" onChange={this._handleLastNameChange} value={this.state.lastName} />
+            Email Address: <input type="email" placeholder="Email" onChange={this._handleEmailChange} value={this.state.email}/>
+            Password: <input type="password" placeholder="Password" onChange={this._handlePasswordChange}  value={this.state.password}/>
+            Password Confirmation: <input type="password" placeholder="Password Confirmation" onChange={this._handlePasswordConfirmationChange}  value={this.state.passwordConfirmation}/>
+            <input type="button" variant="primary" value="Cancel"></input>
+            <input type="submit" value="Save"></input>
+          </form>
+
+      </div>
+
     );
   }
 }
@@ -97,9 +113,12 @@ class UserSignUp extends Component {
 class UserList extends Component {
   render() {
     return(
+      <div>
+      <h2>Passenger List</h2>
       <table>
           <thead>
               <tr>
+                  <th>UserID</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Email</th>
@@ -109,14 +128,17 @@ class UserList extends Component {
               this.props.users.map((user, index)=>
               <tbody key={user.id+1}>
                   <tr key={user.id}>
+                      <td key={index+1}>{((user.id))}</td>
                       <td key={index+1}>{((user.first_name))}</td>
                       <td key={index+2}>{user.last_name}</td>
-                      <td key={index+3}>{user.email}</td>
+                      <td key={index+3}><Link to="/searchflights">{user.email}</Link></td>
                   </tr>
               </tbody>
               )
           }
       </table>
+
+      </div>
     )
   };
   }

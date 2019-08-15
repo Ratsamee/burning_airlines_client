@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const AIRPLANE_SERVER_URL = 'https://group-project-airline.herokuapp.com/airplanes.json';
 const FLIGHT_SERVER_URL = 'https://group-project-airline.herokuapp.com/flights.json';
@@ -34,8 +35,9 @@ class FlightPage extends Component {
   render() {
     return (
         <div>
-            <h1>Virgin Airline</h1>
+            <h2>Add New Flight</h2>
             <FlightForm onSubmit={this.saveFlight} />
+            <h2>Flight List</h2>
             <FlightList flights={this.state.flights} />
         </div>
     );
@@ -111,6 +113,7 @@ class FlightForm extends Component {
             <input type="button" value="Cancel"></input>
             <input type="submit" value="Save"></input>
         </form>
+
       )
     };
 }
@@ -133,7 +136,7 @@ class FlightList extends Component{
                 <tbody key={flight.id+1}>
                     <tr key={flight.id}>
                         <td key={index+1}>{(new Date(flight.departure_date)).toLocaleDateString()}</td>
-                        <td key={index+2}>{flight.flight_number}</td>
+                        <td key={index+2}><Link to={`/flights/${flight.id}`}>{flight.flight_number}</Link></td>
                         <td key={index+3}>{`${flight.origin} > ${flight.destination}`}</td>
                         <td key={index+4}>{flight.airplane.name}</td>
                         <td key={index+5}>{(flight.airplane.rows * flight.airplane.columns).toString()}</td>
@@ -142,6 +145,7 @@ class FlightList extends Component{
                 )
             }
         </table>
+
       )
     };
 }

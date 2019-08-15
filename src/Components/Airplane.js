@@ -29,7 +29,7 @@ class Airplane extends Component {
   render() {
     return (
       <div>
-      <h1>Hello World</h1>
+      <h2>Add Plane</h2>
       <AirplaneCreate onSubmit={this.saveAirplane} />
       </div>
     )
@@ -79,13 +79,13 @@ class AirplaneCreate extends Component { // we're doing all the interactions wit
         Name: <input type="text" name="planeName" onChange={ this._handleChange }  // onChanged activate _handleChange
         value={ this.state.name }></input>
 
-        Row: <input type="number" name="rows" onChange={ this._handleChange }  // onChanged activate _handleChange
+        Seat Rows: <input type="number" name="rows" onChange={ this._handleChange }  // onChanged activate _handleChange
         value={ this.state.rows }></input>
 
 
-        Column: <input type="number" name="cols" onChange={ this._handleChange }  // onChanged activate _handleChange
+        Seat Columns: <input type="number" name="cols" onChange={ this._handleChange }  // onChanged activate _handleChange
         value={ this.state.columns }></input>
-        <input type="submit" value="Tell" />
+        <input type="submit" value="Submit" />
 
       </form>
     );
