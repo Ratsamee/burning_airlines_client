@@ -35,8 +35,9 @@ class FlightPage extends Component {
   render() {
     return (
         <div>
-            <h1>Virgin Airline</h1>
+            <h2>Add New Flight</h2>
             <FlightForm onSubmit={this.saveFlight} />
+            <h2>Flight List</h2>
             <FlightList flights={this.state.flights} />
         </div>
     );
@@ -112,6 +113,7 @@ class FlightForm extends Component {
             <input type="button" value="Cancel"></input>
             <input type="submit" value="Save"></input>
         </form>
+
       )
     };
 }
@@ -143,6 +145,7 @@ class FlightList extends Component{
                 )
             }
         </table>
+
       )
     };
 }

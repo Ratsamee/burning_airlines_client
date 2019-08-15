@@ -24,7 +24,7 @@ class FlightSearchPage extends Component {
   render() {
     return (
       <div>
-          <h1>Virgin Airline</h1>
+          <h2>Flight Search</h2>
           <FlightSearchForm onSubmit={this.fetchSearchFlight} />
           <FlightList flights={this.state.flights} />
       </div>

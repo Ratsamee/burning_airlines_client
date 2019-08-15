@@ -7,6 +7,8 @@ import FlightSearch from "./Components/FlightSearchPage";
 import Airplanes from './Components/Airplane';
 import Reservation from "./Components/ReservationPage";
 import Navigation from './Navigation';
+import Footer from './Components/Footer';
+
 
 // TO DO
 // import Bookings
@@ -21,6 +23,7 @@ export const Routes = (
       <Route exact path="/airplanes" component= {Airplanes} />
       <Route exact path="/flights/:id" component={Reservation} />
       
+      <Footer/>
     </div>
   </Router>
 )
